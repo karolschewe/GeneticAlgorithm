@@ -5,13 +5,13 @@ def oblicz_wspo_trawy(d):
     if d < 50 or d > 300:
         wzrost_trawy = 0
     elif 50 <= d <= 120:
-        wzrost_trawy = 2
+        wzrost_trawy = random.randint(1,2)
     elif 120 < d <= 200:
-        wzrost_trawy = 3
+        wzrost_trawy = random.randint(2,3)
     elif 200 < d <= 300:
-        wzrost_trawy = 1
+        wzrost_trawy = random.randint(0,1)
     else:
-        wzrost_trawy =69
+        wzrost_trawy = 69
 
     return wzrost_trawy
 
@@ -47,16 +47,19 @@ class Osobnik:
                 if dzien % 7 == 0:
                     temp_val -= 50
 
-                if dlugosc_trawy > 15:
-                    temp_val -= (dlugosc_trawy-15) ** 2
-                elif 5 < dlugosc_trawy <= 15:
-                    temp_val -= (15 - dlugosc_trawy)
+                if dlugosc_trawy > 12:
+                    temp_val -= (dlugosc_trawy - 12) ** 2
+                elif 7 < dlugosc_trawy <= 12:
+                    temp_val -= (12 - dlugosc_trawy)
                 else:
                     temp_val -= 500
-                dlugosc_trawy = 5
+
+                dlugosc_trawy = random.randint(4,6)
 
             else:
                 dlugosc_trawy += wzrost_trawy
 
             dzien += 1
+            print(str(dlugosc_trawy) + "  " + str(dzien))
         self.funkcja_celu = temp_val
+
