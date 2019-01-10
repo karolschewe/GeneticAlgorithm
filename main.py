@@ -11,5 +11,6 @@ import Populacja
 goowno = Populacja.Populacja()
 #print(goowno.listaOsobnikow[2].genom)
 goowno.wylicz_funkcje_celu()
-for i in goowno.listaOsobnikow:
-    print(i.funkcja_celu)
+goowno.printPop()
+goowno.krzyzowanie()
+goowno.printPop()

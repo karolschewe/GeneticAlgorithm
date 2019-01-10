@@ -22,17 +22,26 @@ class Osobnik:
     genom = []
     genom_kopia = []
 
-    def __init__(self,id = 0):
-        temp = []
-        for i in range(365):
-            rand = random.random()
-            if rand > 0.5:
-                temp.append(1)
-            else:
-                temp.append(0)
-        self.genom = temp
-        self.genom_kopia = self.genom
+    def __init__(self,id = 0,genom = None):
+        if genom == None:
+            temp = []
+            for i in range(365):
+                if i < 50:
+                    temp.append(0)
+                else:
+                    rand = random.random()
+                    if rand > 0.5:
+                        temp.append(1)
+                    else:
+                        temp.append(0)
+            self.genom = temp
+            self.genom_kopia = self.genom
+        else:
+            self.genom = genom
+            self.genom_kopia = genom
         self.id = id
+
+
 
 
     def wyliczFunCelu(self):
@@ -60,6 +69,5 @@ class Osobnik:
                 dlugosc_trawy += wzrost_trawy
 
             dzien += 1
-            print(str(dlugosc_trawy) + "  " + str(dzien))
         self.funkcja_celu = temp_val
 
