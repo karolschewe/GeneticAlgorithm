@@ -5,12 +5,11 @@ def oblicz_wspo_trawy(d):
     if d < 50 or d > 300:
         wzrost_trawy = 0
     elif 50 <= d <= 120:
-        wzrost_trawy = 1
-    elif 120 < d <= 200:
         wzrost_trawy = 2
+    elif 120 < d <= 200:
+        wzrost_trawy = 3
     elif 200 < d <= 300:
-        wzrost_trawy = 0.5
-
+        wzrost_trawy = 1
     else:
         wzrost_trawy =69
 
@@ -27,7 +26,6 @@ class Osobnik:
         temp = []
         for i in range(365):
             rand = random.random()
-
             if rand > 0.5:
                 temp.append(1)
             else:
@@ -38,10 +36,11 @@ class Osobnik:
 
 
     def wyliczFunCelu(self):
-        temp_val = 1000
+        temp_val = 1e5
         dzien = 1
         dlugosc_trawy = 5
         wzrost_trawy = 0
+
         for i in self.genom:
             wzrost_trawy = oblicz_wspo_trawy(dzien)
             if i == 1:
@@ -54,12 +53,10 @@ class Osobnik:
                     temp_val -= (15 - dlugosc_trawy)
                 else:
                     temp_val -= 500
-
                 dlugosc_trawy = 5
 
             else:
                 dlugosc_trawy += wzrost_trawy
 
-            dzien =+ 1
+            dzien += 1
         self.funkcja_celu = temp_val
-        #print(temp_val)

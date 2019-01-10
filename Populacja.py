@@ -1,10 +1,10 @@
 import Osobnik
+
+
 class Populacja:
     # wspolcznynniki
     pMutacji = 0.001
     wielkoscPopulacji = 50
-    karaBoza = 5
-
 
     listaOsobnikow = []
 
