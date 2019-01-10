@@ -9,4 +9,7 @@ import Populacja
 # średnie rozkładu wzrostu: lista zdefiniowana na twardo
 
 goowno = Populacja.Populacja()
-print(goowno.listaOsobnikow[2].genom)
+#print(goowno.listaOsobnikow[2].genom)
+goowno.wylicz_funkcje_celu()
+for i in goowno.listaOsobnikow:
+    print(i.funkcja_celu)
