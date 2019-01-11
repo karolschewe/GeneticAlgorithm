@@ -8,9 +8,6 @@ import Populacja
 # wzrost trawy: losowa liczba większa od zera z rozkładu normalnego o średniej zależnej od pory roku; małe odchylenie rozkł
 # średnie rozkładu wzrostu: lista zdefiniowana na twardo
 
-goowno = Populacja.Populacja()
+algen = Populacja.Populacja()
 #print(goowno.listaOsobnikow[2].genom)
-goowno.wylicz_funkcje_celu()
-goowno.printPop()
-goowno.krzyzowanie()
-goowno.printPop()
+algen.zrobWszystko()

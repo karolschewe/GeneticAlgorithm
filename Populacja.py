@@ -1,12 +1,14 @@
 import Osobnik
 import random
 from numpy.random import choice
-
+from matplotlib import pyplot
 
 class Populacja:
     # wspolcznynniki
-    pMutacji = 0.001
+    pMutacji = 1e-5
     wielkoscPopulacji = 50
+    najlepszyFunkcjaCelu = 0
+    najlepszyLiczbaKoszen = 365
 
     listaOsobnikow = []
 
@@ -31,7 +33,7 @@ class Populacja:
             kopulacja.append(choice(self.listaOsobnikow,p=probList))
         return (kopulacja)
 
-    def krzyzowanie(self):
+    def krzyzowaniePunktowe(self):
         pulaRodzicielska = self.ruletka()
         pary = choice(pulaRodzicielska,size=(25,2))
         nowaPopulacja = []
@@ -46,31 +48,21 @@ class Populacja:
                     dziecko1.append(i[1].genom[j])
                     dziecko2.append(i[0].genom[j])
                 for k in range(miejsce,365):
-                    dziecko1.append(i[0].genom[j])
-                    dziecko2.append(i[1].genom[j])
+                    dziecko1.append(i[0].genom[k])
+                    dziecko2.append(i[1].genom[k])
             else:
                 for j in range(miejsce):
                     dziecko1.append(i[0].genom[j])
                     dziecko2.append(i[1].genom[j])
                 for k in range(miejsce,365):
-                    dziecko1.append(i[1].genom[j])
-                    dziecko2.append(i[0].genom[j])
+                    dziecko1.append(i[1].genom[k])
+                    dziecko2.append(i[0].genom[k])
             nowaPopulacja.append(Osobnik.Osobnik(id = id, genom=dziecko1))
             id += 1
             nowaPopulacja.append(Osobnik.Osobnik(id = id, genom=dziecko2))
             id += 1
 
         self.listaOsobnikow=nowaPopulacja
-
-
-
-
-
-
-
-
-
-
 
 
     def mutacja(self):
@@ -91,6 +83,46 @@ class Populacja:
         for i in self.listaOsobnikow:
             print("id:"+str(i.id))
             print(i.genom)
+
+    def najlepszyOsobnik(self):
+        wynik = 0
+        liczbaKoszen = 365
+        for i in self.listaOsobnikow:
+            if i.funkcja_celu > wynik:
+                wynik = i.funkcja_celu
+                liczbaKoszen = i.liczbaKoszen()
+
+        self.najlepszyFunkcjaCelu = wynik
+        self.najlepszyLiczbaKoszen = liczbaKoszen
+
+    def zrobWszystko(self,liczbaPokolen = 200):
+        krokCzasowy = []
+        fOdT = []
+        liczbaKoszenOdT = []
+        for i in range(liczbaPokolen):
+            print(i)
+            self.wylicz_funkcje_celu()
+            self.najlepszyOsobnik()
+            if i > 0:
+                krokCzasowy.append(i)
+                fOdT.append(self.najlepszyFunkcjaCelu)
+                liczbaKoszenOdT.append(self.najlepszyLiczbaKoszen)
+            self.ruletka()
+            self.krzyzowaniePunktowe()
+            self.mutacja()
+        pyplot.plot(krokCzasowy,fOdT)
+        pyplot.title("Funkcja celu najlepszego osobnika od czasu")
+        pyplot.xlabel("Krok Czasowy")
+        pyplot.ylabel("Wartość funkcji celu")
+        pyplot.show()
+        pyplot.plot(krokCzasowy,liczbaKoszenOdT)
+        pyplot.title("Liczba koszeń najlepszego osobnika od czasu")
+        pyplot.xlabel("Krok Czasowy")
+        pyplot.ylabel("Liczba koszeń w ciągu roku")
+        pyplot.show()
+
+
+
 
 
 
